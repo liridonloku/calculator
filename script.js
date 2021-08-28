@@ -187,14 +187,27 @@ buttons.forEach(button =>{
         if(expression.textContent.length > 20){
             expression.style.transitionDuration = '0.1s';
             sign.style.transitionDuration = '0.1s';
-            expression.style.fontSize = '16px';
-            sign.style.fontSize = '16px';
+            expression.style.fontSize = '18px';
+            sign.style.fontSize = '18px';
+            if(expression.textContent.length > 24){
+                expression.style.fontSize = '14px';
+                sign.style.fontSize = '14px';
+            }
         }
         else{
             expression.style.transitionDuration = '0.1s';
             expression.style.fontSize = '24px';
             sign.style.transitionDuration = '0.1s';
             sign.style.fontSize = '24px';
+        }
+
+        if(history.textContent.length > 20){
+            history.style.transitionDuration = '0.1s';
+            history.style.fontSize = '14px';
+        }
+        else{
+            history.style.transitionDuration = '0.1s';
+            history.style.fontSize = '16px';
         }
     });
 });
