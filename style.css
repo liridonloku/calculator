@@ -176,6 +176,10 @@ button{
         height: 60px;
     }
 
+    #expression{
+        justify-content: end !important;
+    }
+
     #calc-display > div {
         display: flex;
         flex-direction: column;
