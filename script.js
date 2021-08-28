@@ -231,7 +231,6 @@ function calculateExpression(array){
 //Keyboard support
 document.addEventListener('keydown', e =>{
     let id = e.key;
-    console.log(e);
     let hasOperator = input.includes('+') || input.includes('-') || input.includes('%') || input.includes('×') || input.includes('÷');
     let operatorIndex = Math.max(input.indexOf('+'), input.indexOf('-'), input.indexOf('%'), input.indexOf('×'), input.indexOf('÷'));
     let lastDigit = input[input.length-1];
