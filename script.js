@@ -32,6 +32,7 @@ buttons.forEach(button =>{
     button.addEventListener('click', e =>{
         let id = e.target.id;
         let hasOperator = input.includes('+') || input.includes('-') || input.includes('%') || input.includes('×') || input.includes('÷');
+        let operatorIndex = Math.max(input.indexOf('+'), input.indexOf('-'), input.indexOf('%'), input.indexOf('×'), input.indexOf('÷'));
         let lastDigit = input[input.length-1];
         let endsWithOperator = lastDigit==='+' || lastDigit==='-' || lastDigit==='%' || lastDigit==='×' || lastDigit==='÷';
         switch (id){
@@ -57,11 +58,11 @@ buttons.forEach(button =>{
                     history.textContent = displayString;
                     let newResult = calculateExpression(input);
                     input = [];
-                    input.push(newResult);
+                    input = input.concat(newResult);
                     input.push(e.target.textContent);
                     lastOperatorWasEquals = false;
                 }
-                else if(input===''){
+                else if(input.length === 0){
                     //If the screen is empty, do nothing.
                 }
                 else{
@@ -74,7 +75,7 @@ buttons.forEach(button =>{
                     history.textContent = displayString;
                     let newResult = calculateExpression(input);
                     input = [];
-                    input.push(newResult);
+                    input = input.concat(newResult);
                     lastOperatorWasEquals = true;
                 }
                 break;
@@ -87,14 +88,40 @@ buttons.forEach(button =>{
             case '7':
             case '8':
             case '9':
-            case '0':
-                if(lastOperatorWasEquals){
+                if((input.length === 1 && input[0] === '0') || (hasOperator && input.slice(operatorIndex+1).length === 1 && input[operatorIndex+1] === '0')){
+                    //If the first digit of either operand is 0, replace it.
+                    input.pop();
+                    input.push(e.target.textContent);
+                }   
+                else if(lastOperatorWasEquals){
                     input = [];
                     input.push(e.target.textContent);
                     lastOperatorWasEquals = false;
                 }
                 else{
-                    let operatorIndex = Math.max(input.indexOf('+'), input.indexOf('-'), input.indexOf('%'), input.indexOf('×'), input.indexOf('÷'));
+                    if(!hasOperator && input.length >=15){
+                        alert('Calculator doesn\'t work with longer numbers');
+                        //First argument can't have more than 15 digits.
+                    }
+                    else if(hasOperator && input.slice(operatorIndex).length >=16){
+                        alert('Calculator doesn\'t work with longer numbers');
+                        //Second argument can't have more than 15 digits.
+                    }
+                    else{
+                        input.push(e.target.textContent);
+                    }
+                }
+                break;
+            case '0':
+                if((input.length === 1 && input[0] === '0') || (hasOperator && input.slice(operatorIndex+1).length === 1 && input[operatorIndex+1] === '0')){
+                    //Do nothing if the first digit of either operand is 0.
+                }                
+                else if(lastOperatorWasEquals){
+                    input = [];
+                    input.push(e.target.textContent);
+                    lastOperatorWasEquals = false;
+                }
+                else{
                     if(!hasOperator && input.length >=15){
                         alert('Calculator doesn\'t work with longer numbers');
                         //First argument can't have more than 15 digits.
@@ -109,51 +136,27 @@ buttons.forEach(button =>{
                 }
                 break;
             case 'negative':
-                if(!hasOperator){
-                    input.unshift('-'); //insert a minus if it's just one operand on the screen
-                }
-                else{
-                    //Do nothing.
-                }
+                break;
             case 'point':
                 if(input.length === 0 || endsWithOperator){
-                    input.push('0.');
+                    input.push('0','.');
+                }
+                else if(lastOperatorWasEquals){
+                    input = [];
+                    input.push('0','.');
+                    lastOperatorWasEquals = false;
+                }
+                else if((!hasOperator && input.includes('.')) || (hasOperator && input.slice(operatorIndex).includes('.'))){
+                    //If current operand already includes a point, don't add another.
                 }
                 else{
-                    input.push('.');   // needs more work in use cases.
+                    input.push('.');
                 }
+                break;
         }
+        console.log(input);
 
-        // This part deals with the display, so that zeros preceding numbers aren't displayed. Needs a different implementation...
-        let firstArg;
-        let secondArg;
-        let operator;
-        hasOperator = input.includes('+') || input.includes('-') || input.includes('%') || input.includes('×') || input.includes('÷'); //check again
-        lastDigit = input[input.length-1]; //check again
-        endsWithOperator = lastDigit==='+' || lastDigit==='-' || lastDigit==='%' || lastDigit==='×' || lastDigit==='÷'; //check again
-        if(hasOperator && !endsWithOperator){    
-            let operatorIndex = Math.max(input.indexOf('+'), input.indexOf('-'), input.indexOf('%'), input.indexOf('×'), input.indexOf('÷'));
-            firstArg = parseFloat(input.slice(0,operatorIndex).join(''));
-            operator = input[operatorIndex];
-            secondArg = parseFloat(input.slice(operatorIndex+1).join(''));
-        }
-        else if(hasOperator && endsWithOperator){
-            let operatorIndex = Math.max(input.indexOf('+'), input.indexOf('-'), input.indexOf('%'), input.indexOf('×'), input.indexOf('÷'));
-            firstArg = parseFloat(input.slice(0,operatorIndex).join(''));
-            operator = input[input.length-1].toString();
-            secondArg = '';
-        }
-        else if(input.length === 0){
-            firstArg = '';
-            operator = '';
-            secondArg = '';
-        }
-        else{
-            firstArg = parseFloat(input.slice(0).join(''));
-            operator = '';
-            secondArg = '';
-        }
-        displayString = firstArg.toString()+ operator.toString()+ secondArg.toString();
+        displayString = input.join('');
         expression.textContent = displayString;
 
 
@@ -197,6 +200,10 @@ function calculateExpression(array){
             console.log("Operator selection error");
             break;
     }
+    result = parseFloat(result.toString()).toPrecision(15); //to fix incorrect calculation with long float numbers
     result = result.toString();
+    while(result.charAt(result.length-1)==='0' || result.charAt(result.length-1)==='.'){
+        result = result.slice(0,-1);
+    }
     return result;
 }
