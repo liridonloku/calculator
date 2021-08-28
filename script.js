@@ -58,7 +58,12 @@ buttons.forEach(button =>{
                     lastOperatorWasEquals = false;
                 }
                 else if(hasOperator && !endsWithOperator){
-                    history.textContent = displayString;
+                    if(negative){
+                        history.textContent = `-${displayString}`;
+                    }
+                    else{
+                        history.textContent = displayString;
+                    }
                     let newResult = calculateExpression(input);
                     input = [];
                     input = input.concat(newResult);
@@ -75,7 +80,12 @@ buttons.forEach(button =>{
                 break;
             case 'equals':
                 if(hasOperator && !endsWithOperator){
-                    history.textContent = displayString;
+                    if(negative){
+                        history.textContent = `-${displayString}`;
+                    }
+                    else{
+                        history.textContent = displayString;
+                    }
                     let newResult = calculateExpression(input);
                     input = [];
                     input = input.concat(newResult);
@@ -253,7 +263,12 @@ document.addEventListener('keydown', e =>{
                 lastOperatorWasEquals = false;
             }
             else if(hasOperator && !endsWithOperator){
-                history.textContent = displayString;
+                if(negative){
+                    history.textContent = `-${displayString}`;
+                }
+                else{
+                    history.textContent = displayString;
+                }
                 let newResult = calculateExpression(input);
                 input = [];
                 input = input.concat(newResult);
@@ -275,7 +290,12 @@ document.addEventListener('keydown', e =>{
                 lastOperatorWasEquals = false;
             }
             else if(hasOperator && !endsWithOperator){
-                history.textContent = displayString;
+                if(negative){
+                    history.textContent = `-${displayString}`;
+                }
+                else{
+                    history.textContent = displayString;
+                }
                 let newResult = calculateExpression(input);
                 input = [];
                 input = input.concat(newResult);
@@ -297,7 +317,12 @@ document.addEventListener('keydown', e =>{
                 lastOperatorWasEquals = false;
             }
             else if(hasOperator && !endsWithOperator){
-                history.textContent = displayString;
+                if(negative){
+                    history.textContent = `-${displayString}`;
+                }
+                else{
+                    history.textContent = displayString;
+                }
                 let newResult = calculateExpression(input);
                 input = [];
                 input = input.concat(newResult);
@@ -315,7 +340,12 @@ document.addEventListener('keydown', e =>{
         case '=':
         case 'Enter':
             if(hasOperator && !endsWithOperator){
-                history.textContent = displayString;
+                if(negative){
+                    history.textContent = `-${displayString}`;
+                }
+                else{
+                    history.textContent = displayString;
+                }
                 let newResult = calculateExpression(input);
                 input = [];
                 input = input.concat(newResult);
