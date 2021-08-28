@@ -68,6 +68,17 @@ body {
     justify-content: flex-end;
 }
 
+#sign{
+    width: 10px;
+    flex: 0 0 10px;
+}
+#expression{
+    display: flex;
+    flex: 1 1 100%;
+    align-items: center;
+    justify-content: end;
+}
+
 /*bottom part of the calculator*/
 #calc-bottom{
     display: flex;
