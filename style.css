@@ -82,6 +82,7 @@ body {
     flex: 1 1 100%;
     align-items: center;
     justify-content: end;
+    text-align: end;
 }
 
 /*bottom part of the calculator*/
