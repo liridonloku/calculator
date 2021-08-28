@@ -184,30 +184,40 @@ buttons.forEach(button =>{
 
 
         // Resize font based on input length
-        if(expression.textContent.length > 20){
+        if(expression.textContent.length > 10){
             expression.style.transitionDuration = '0.1s';
             sign.style.transitionDuration = '0.1s';
-            expression.style.fontSize = '18px';
-            sign.style.fontSize = '18px';
-            if(expression.textContent.length > 24){
-                expression.style.fontSize = '14px';
-                sign.style.fontSize = '14px';
+            expression.style.fontSize = '24px';
+            sign.style.fontSize = '24px';
+            if(expression.textContent.length > 20){
+                expression.style.fontSize = '18px';
+                sign.style.fontSize = '18px';
+                if(expression.textContent.length > 27){
+                    expression.style.fontSize = '14px';
+                    sign.style.fontSize = '14px';
+                }
             }
         }
         else{
             expression.style.transitionDuration = '0.1s';
-            expression.style.fontSize = '24px';
+            expression.style.fontSize = '36px';
             sign.style.transitionDuration = '0.1s';
-            sign.style.fontSize = '24px';
+            sign.style.fontSize = '36px';
         }
 
-        if(history.textContent.length > 20){
+        if(history.textContent.length > 10){
             history.style.transitionDuration = '0.1s';
-            history.style.fontSize = '14px';
+            history.style.fontSize = '20px';
+            if(history.textContent.length > 15){
+                history.style.fontSize = '16px';
+                if(history.textContent.length > 20){
+                    history.style.fontSize = '14px';
+                }
+            }
         }
         else{
             history.style.transitionDuration = '0.1s';
-            history.style.fontSize = '16px';
+            history.style.fontSize = '28px';
         }
     });
 });
