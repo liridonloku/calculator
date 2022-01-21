@@ -293,6 +293,17 @@ const getTrivia = async (number) => {
       `http://numbersapi.com/${Math.floor(number)}/year`
     );
     data = await newResponse.text();
+  } else if (
+    number > 3000 &&
+    (data.includes("uninteresting") ||
+      data.includes("boring") ||
+      data.includes("unremarkable") ||
+      data.includes("numbersapi"))
+  ) {
+    const newResponse = await fetch(
+      `http://numbersapi.com/${Math.floor(number)}/math`
+    );
+    data = await newResponse.text();
   }
   document.querySelector(".trivia-content").textContent = `Fun fact: ${data}`;
 };
