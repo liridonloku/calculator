@@ -278,7 +278,7 @@ function calculateExpression(array) {
 }
 
 const getTrivia = async (number) => {
-  const response = await fetch(`http://numbersapi.com/${Math.floor(number)}`);
+  const response = await fetch(`https://numbersapi.com/${Math.floor(number)}`);
   let data = await response.text();
   //uninteresting, unremarkable, boring
   if (
@@ -290,7 +290,7 @@ const getTrivia = async (number) => {
       data.includes("numbersapi"))
   ) {
     const newResponse = await fetch(
-      `http://numbersapi.com/${Math.floor(number)}/year`
+      `https://numbersapi.com/${Math.floor(number)}/year`
     );
     data = await newResponse.text();
   } else if (
@@ -301,7 +301,7 @@ const getTrivia = async (number) => {
       data.includes("numbersapi"))
   ) {
     const newResponse = await fetch(
-      `http://numbersapi.com/${Math.floor(number)}/math`
+      `https://numbersapi.com/${Math.floor(number)}/math`
     );
     data = await newResponse.text();
   }
