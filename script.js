@@ -273,10 +273,12 @@ function calculateExpression(array) {
   ) {
     result = result.slice(0, -1);
   }
-  getTrivia(result);
+  //Commented out because the source doesn't work on https. It may be fixed in the future.
+  //getTrivia(result);
   return result;
 }
 
+/*
 const getTrivia = async (number) => {
   const response = await fetch(`https://numbersapi.com/${Math.floor(number)}`);
   let data = await response.text();
@@ -306,7 +308,7 @@ const getTrivia = async (number) => {
     data = await newResponse.text();
   }
   document.querySelector(".trivia-content").textContent = `Fun fact: ${data}`;
-};
+}; */
 
 //Keyboard support
 document.addEventListener("keydown", (e) => {

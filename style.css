@@ -139,6 +139,7 @@ button {
   background-color: rgb(39, 138, 138);
 }
 
+/* Trivia is hidden becauses the data source doesn't work with https*/
 .trivia-container {
   box-sizing: border-box;
   background-color: #fcf6f5ff;
@@ -147,7 +148,7 @@ button {
   width: 400px;
   height: 100px;
   padding: 10px;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
